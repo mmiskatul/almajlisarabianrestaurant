@@ -91,6 +91,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "Almajlis Arabian Restaurant" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Almajlis Arabian Restaurant | Gulshan-2, Dhaka" },
+      { name: "twitter:title", content: "Almajlis Arabian Restaurant | Gulshan-2, Dhaka" },
+      { property: "og:description", content: "Authentic Arabian dining in Gulshan-2, Dhaka. Charcoal kebabs, slow-smoked mandi and Arabian hospitality. Open daily 11 AM – 2 AM." },
+      { name: "twitter:description", content: "Authentic Arabian dining in Gulshan-2, Dhaka. Charcoal kebabs, slow-smoked mandi and Arabian hospitality. Open daily 11 AM – 2 AM." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ea6f18bb-46d6-4d47-97a5-f9cfa0302106/id-preview-46b3ce44--cee95b2f-593e-4434-98de-8960503441a0.lovable.app-1785828092924.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/ea6f18bb-46d6-4d47-97a5-f9cfa0302106/id-preview-46b3ce44--cee95b2f-593e-4434-98de-8960503441a0.lovable.app-1785828092924.png" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -103,7 +109,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
     scripts: [
       {
