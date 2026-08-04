@@ -11,6 +11,10 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { LanguageProvider } from "@/lib/i18n";
+import { Nav, WhatsAppFab } from "@/components/site/Nav";
+import { Footer } from "@/components/site/Footer";
+import { RESTAURANT } from "@/lib/site";
 
 function NotFoundComponent() {
   return (
@@ -77,21 +81,73 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Almajlis Arabian Restaurant | Gulshan-2, Dhaka" },
+      {
+        name: "description",
+        content:
+          "Authentic Arabian dining in Gulshan-2, Dhaka. Charcoal kebabs, slow-smoked mandi and Arabian hospitality. Open daily 11 AM – 2 AM.",
+      },
+      { name: "author", content: "Almajlis Arabian Restaurant" },
+      { property: "og:site_name", content: "Almajlis Arabian Restaurant" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Noto+Kufi+Arabic:wght@300;400;600&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Restaurant",
+          name: RESTAURANT.name,
+          alternateName: RESTAURANT.nameAr,
+          servesCuisine: ["Arabian", "Middle Eastern", "Yemeni"],
+          priceRange: "৳৳",
+          telephone: RESTAURANT.phone,
+          email: RESTAURANT.email,
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "27 C/A Faisal Tower, 2nd Floor, Road 52, Gulshan-2",
+            addressLocality: "Dhaka",
+            postalCode: "1212",
+            addressCountry: "BD",
+          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday",
+              ],
+              opens: "11:00",
+              closes: "02:00",
+            },
+          ],
+          acceptsReservations: `https://wa.me/${RESTAURANT.whatsapp}`,
+          sameAs: [
+            RESTAURANT.social.instagram,
+            RESTAURANT.social.facebook,
+            RESTAURANT.social.snapchat,
+          ],
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -119,8 +175,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <LanguageProvider>
+        <Nav />
+        <main id="main">
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+        </main>
+        <Footer />
+        <WhatsAppFab />
+      </LanguageProvider>
     </QueryClientProvider>
   );
 }

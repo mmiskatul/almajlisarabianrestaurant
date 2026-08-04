@@ -33,7 +33,7 @@ export function CtaLink({
     );
   }
   return (
-    <Link to={href} className={cn(ctaVariants[variant], className)}>
+    <Link to={href as never} className={cn(ctaVariants[variant], className)}>
       {children}
     </Link>
   );
