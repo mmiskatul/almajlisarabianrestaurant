@@ -4,6 +4,12 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-arabic: "Noto Kufi Arabic", "Inter", sans-serif;
+}
+
 /*
  * Design system definition.
  *
@@ -59,29 +65,48 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-foreground: var(--charcoal-foreground);
+  --color-gold: var(--gold);
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --radius: 0.5rem;
+  /* cream / sand */
+  --background: oklch(0.957 0.017 78);
+  --foreground: oklch(0.21 0.008 60);
+  --card: oklch(0.981 0.011 84);
+  --card-foreground: oklch(0.21 0.008 60);
+  --popover: oklch(0.981 0.011 84);
+  --popover-foreground: oklch(0.21 0.008 60);
+  /* terracotta */
+  --primary: oklch(0.575 0.132 47);
+  --primary-foreground: oklch(0.981 0.011 84);
+  --secondary: oklch(0.915 0.024 80);
+  --secondary-foreground: oklch(0.26 0.01 60);
+  --muted: oklch(0.925 0.02 80);
+  --muted-foreground: oklch(0.48 0.018 65);
+  /* antique gold */
+  --accent: oklch(0.735 0.098 85);
+  --accent-foreground: oklch(0.21 0.008 60);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: oklch(0.878 0.024 78);
+  --input: oklch(0.878 0.024 78);
+  --ring: oklch(0.575 0.132 47);
+  /* charcoal surface for dark sections */
+  --charcoal: oklch(0.19 0.006 60);
+  --charcoal-foreground: oklch(0.955 0.017 78);
+  --gold: oklch(0.735 0.098 85);
+  --gradient-ember: linear-gradient(135deg, oklch(0.575 0.132 47), oklch(0.66 0.11 62));
+  --gradient-veil: linear-gradient(
+    to top,
+    oklch(0.15 0.01 60 / 0.92) 0%,
+    oklch(0.15 0.01 60 / 0.55) 45%,
+    oklch(0.15 0.01 60 / 0.7) 100%
+  );
+  --shadow-soft: 0 18px 50px -24px oklch(0.3 0.05 50 / 0.45);
+  --shadow-lift: 0 30px 70px -30px oklch(0.3 0.05 50 / 0.55);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,5 +165,76 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  html[dir="rtl"] body {
+    font-family: var(--font-arabic);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+}
+
+@utility container-x {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 80rem;
+  padding-inline: 1.25rem;
+}
+
+/* Mashrabiya-style lattice motif */
+@utility mashrabiya {
+  background-image:
+    radial-gradient(circle at 50% 0%, transparent 68%, var(--gold) 69%, transparent 72%),
+    radial-gradient(circle at 0% 50%, transparent 68%, var(--gold) 69%, transparent 72%),
+    radial-gradient(circle at 100% 50%, transparent 68%, var(--gold) 69%, transparent 72%),
+    radial-gradient(circle at 50% 100%, transparent 68%, var(--gold) 69%, transparent 72%);
+  background-size: 44px 44px;
+}
+
+@utility rule-gold {
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  height: 1px;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal.is-visible {
+  animation: reveal-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }
